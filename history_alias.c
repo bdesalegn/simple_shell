@@ -6,7 +6,7 @@
  */
 int display_history(info_t *info)
 {
-	print_list(info->history);
+	cust_print_list(info->history);
 	return (0);
 }
 /**
@@ -26,8 +26,8 @@ int remove_alias(info_t *info, char *str)
 		return (1);
 	equal_sign_char = *equal_sign;
 	*equal_sign = 0;
-	ret = delete_node_at_index(&(info->alias),
-							get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	ret = remove_node_at_index(&(info->alias), cust_get_node_index
+			(info->alias, cust_node_starts_with(info->alias, str, -1)));
 	*equal_sign = equal_sign_char;
 	return (ret);
 }
