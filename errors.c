@@ -37,11 +37,11 @@ int str_to_int(char *str)
  */
 void print_custom_error(info_t *data, char *error_str)
 {
-	cust_puts(data->filename);
+	cust_puts(data->fname);
 	cust_puts(": ");
-	print_decimal(data->line_number, STDERR_FILENO);
+	print_decimal(data->line_count, STDERR_FILENO);
 	cust_puts(": ");
-	cust_puts(data->arguments[0]);
+	cust_puts(data->argv[0]);
 	cust_puts(": ");
 	cust_puts(error_str);
 }
@@ -60,7 +60,7 @@ int print_decimal(int input, int fd)
 	unsigned int absolute, current;
 
 	if (fd == STDERR_FILENO)
-		put_char = _error_put_char;
+		put_char = _eputchar;
 	if (input < 0)
 	{
 		absolute = -input;
