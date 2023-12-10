@@ -8,12 +8,12 @@
  */
 char **obtain_environment(info_t *details)
 {
-	if (!details->environment || details->env_changed)
+	if (!details->environ || details->env_changed)
 	{
-		details->environment = cust_list_to_strings(details->env_list);
+		details->environ = cust_list_to_strings(details->env_list);
 		details->env_changed = 0;
 	}
-	return (details->environment);
+	return (details->environ);
 }
 
 /**
@@ -25,7 +25,7 @@ char **obtain_environment(info_t *details)
  */
 int remove_environment_variable(info_t *details, char *property)
 {
-	list_t *node = details->env_list;
+	list_t *node = details->env;
 	size_t i = 0;
 	char *p;
 
@@ -37,9 +37,9 @@ int remove_environment_variable(info_t *details, char *property)
 		p = cust_starts_with(node->str, property);
 		if (p && *p == '=')
 		{
-			details->env_changed = remove_node_at_index(&(details->env_list), i);
+			details->env_changed = remove_node_at_index(&(details->env), i);
 			i = 0;
-			node = details->env_list;
+			node = details->env;
 			continue;
 		}
 		node = node->next;
@@ -72,7 +72,7 @@ int update_environment_variable(info_t *details, char *property, char *value)
 	copyString(buf, property);
 	cust_strcat(buf, "=");
 	cust_strcat(buf, value);
-	node = details->env_list;
+	node = details->env;
 	while (node)
 	{
 		p = cust_starts_with(node->str, property);
@@ -85,7 +85,7 @@ int update_environment_variable(info_t *details, char *property, char *value)
 		}
 		node = node->next;
 	}
-	append_node(&(details->env_list), buf, 0);
+	append_node(&(details->env), buf, 0);
 	free(buf);
 	details->env_changed = 1;
 	return (0);
