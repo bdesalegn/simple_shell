@@ -6,10 +6,10 @@
  */
 void initialize_data(info_t *data)
 {
-	data->argument = NULL;
-	data->arguments = NULL;
+	data->arg = NULL;
+	data->argv = NULL;
 	data->path = NULL;
-	data->argument_count = 0;
+	data->argc = 0;
 }
 
 /**
@@ -21,26 +21,26 @@ void populate_data(info_t *data, char **args)
 {
 	int i = 0;
 
-	data->filename = args[0];
-	if (data->argument)
+	data->fname = args[0];
+	if (data->arg)
 	{
-		data->arguments = strtow(data->argument, " \t");
-		if (!data->arguments)
+		data->argv = splitString(data->arg, " \t");
+		if (!data->argv)
 		{
 
-			data->arguments = malloc(sizeof(char *) * 2);
-			if (data->arguments)
+			data->argv = malloc(sizeof(char *) * 2);
+			if (data->argv)
 			{
-				data->arguments[0] = _strdup(data->argument);
-				data->arguments[1] = NULL;
+				data->argv[0] = duplicateString(data->arg);
+				data->argv[1] = NULL;
 			}
 		}
-		for (i = 0; data->arguments && data->arguments[i]; i++)
+		for (i = 0; data->argv && data->argv[i]; i++)
 			;
-		data->argument_count = i;
+		data->argc = i;
 
-		replace_alias(data);
-		replace_variables(data);
+		replaceAlias(data);
+		replaceVariables(data);
 	}
 }
 
@@ -51,24 +51,24 @@ void populate_data(info_t *data, char **args)
  */
 void release_data(info_t *data, int all)
 {
-	ffree(data->arguments);
-	data->arguments = NULL;
+	cust_free(data->argv);
+	data->argv = NULL;
 	data->path = NULL;
 	if (all)
 	{
-		if (!data->command_buffer)
-			free(data->argument);
-		if (data->environment)
-			free_list(&(data->environment));
+		if (!data->cmd_buf)
+			free(data->arg);
+		if (data->env)
+			free_list(&(data->env));
 		if (data->history)
 			free_list(&(data->history));
 		if (data->alias)
 			free_list(&(data->alias));
-		ffree(data->environ);
+		cust_free(data->environ);
 		data->environ = NULL;
-		bfree((void **)data->command_buffer);
-		if (data->read_fd > 2)
-			close(data->read_fd);
+		bfree((void **)data->cmd_buf);
+		if (data->readfd > 2)
+			close(data->readfd);
 		cust_putchar(BUFFER_FLUSH);
 	}
 }
