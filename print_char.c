@@ -27,14 +27,14 @@ void cust_puts(char *str_input)
 int cust_putchar(char char_input)
 {
 	static int count;
-	static char buffer[WRITE_BUFFER_SIZE];
+	static char buffer[WRITE_BUF_SIZE];
 
-	if (char_input == BUFFER_FLUSH || count >= WRITE_BUFFER_SIZE)
+	if (char_input == BUF_FLUSH || count >= WRITE_BUF_SIZE)
 	{
 		write(2, buffer, count);
 		count = 0;
 	}
-	if (char_input != BUFFER_FLUSH)
+	if (char_input != BUF_FLUSH)
 		buffer[count++] = char_input;
 	return (1);
 }
@@ -49,14 +49,14 @@ int cust_putchar(char char_input)
 int put_to_fd(char char_input, int file_descriptor)
 {
 	static int count;
-	static char buffer[WRITE_BUFFER_SIZE];
+	static char buffer[WRITE_BUF_SIZE];
 
-	if (char_input == BUFFER_FLUSH || count >= WRITE_BUFFER_SIZE)
+	if (char_input == BUF_FLUSH || count >= WRITE_BUF_SIZE)
 	{
 		write(file_descriptor, buffer, count);
 		count = 0;
 	}
-	if (char_input != BUFFER_FLUSH)
+	if (char_input != BUF_FLUSH)
 		buffer[count++] = char_input;
 	return (1);
 }
