@@ -11,7 +11,7 @@ char *fetch_history_file(info_t *information)
 {
 	char *buffer, *directory;
 
-	directory = get_env_var(information, "HOME=");
+	directory = get_environment_variable(information, "HOME=");
 	if (!directory)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (cust_strlen(directory) +
@@ -96,7 +96,7 @@ int load_history(info_t *information)
 	free(buffer);
 	information->histcount = line_count;
 	while (information->histcount-- >= HIST_MAX)
-		delete_node_at_index(&(information->history), 0);
+		remove_node_at_index(&(information->history), 0);
 	renumber_history_list(information);
 	return (information->histcount);
 }
@@ -115,7 +115,7 @@ int append_to_history_list(info_t *information, char *buffer, int line_count)
 
 	if (information->history)
 		node = information->history;
-	add_node_end(&node, buffer, line_count);
+	append_node(&node, buffer, line_count);
 	if (!information->history)
 		information->history = node;
 	return (0);
