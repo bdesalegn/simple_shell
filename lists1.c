@@ -40,7 +40,7 @@ char **cust_list_to_strings(list_t *head_ptr)
 
 	for (size_t i = 0; current_node; current_node = current_node->next, i++)
 	{
-		str = malloc(_cust_strlen(current_node->str) + 1);
+		str = malloc(cust_strlen(current_node->str) + 1);
 		if (!str)
 		{
 			for (size_t j = 0; j < i; j++)
@@ -49,7 +49,7 @@ char **cust_list_to_strings(list_t *head_ptr)
 			return (NULL);
 		}
 
-		str = cust_strcpy(str, current_node->str);
+		str = copyString(str, current_node->str);
 		strings_array[i] = str;
 	}
 	strings_array[length] = NULL;
