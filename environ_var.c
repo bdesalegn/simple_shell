@@ -7,7 +7,7 @@
  */
 int print_environment(info_t *info)
 {
-	print_list_strngs(info->env);
+	print_list_strings(info->env);
 	return (0);
 }
 
@@ -68,7 +68,7 @@ int unset_environment_variable(info_t *info)
 		return (1);
 	}
 	for (i = 1; i <= info->argc; i++)
-		remove_environment_variable(information, info->argv[i]);
+		remove_environment_variable(info, info->argv[i]);
 	return (0);
 }
 
