@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "s_shell.h"
 
 /**
  * is_chain_delimiter - test if current char in buffer is a chain delimiter
@@ -45,7 +45,8 @@ int is_chain_delimiter(info_t *info, char *buffer, size_t *position)
  *
  * Return: Void
  */
-void checkDelimiter(info_t *info, char *buffer, size_t *position, size_t start, size_t length)
+void checkDelimiter(info_t *info, char *buffer, size_t *position,
+		size_t start, size_t length)
 {
 	size_t j = *position;
 
