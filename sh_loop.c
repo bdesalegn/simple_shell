@@ -36,9 +36,9 @@ int my_shell(info_t *shell_info, char **arguments)
 		exit(shell_info->status);
 	if (builtin_result == -2)
 	{
-		if (shell_info->error_num == -1)
+		if (shell_info->err_num == -1)
 			exit(shell_info->status);
-		exit(shell_info->error_num);
+		exit(shell_info->err_num);
 	}
 	return (builtin_result);
 }
@@ -128,7 +128,7 @@ void find_shell_command(info_t *shell_info)
  *
  * Return: void
  */
-void fork_shell_command(shell_info_t *shell_info)
+void fork_shell_command(info_t *shell_info)
 {
 	pid_t child_pid;
 
