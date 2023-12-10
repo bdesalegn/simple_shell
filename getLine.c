@@ -21,7 +21,7 @@ ssize_t buffer_input(info_t *information, char **buffer, size_t *length)
 #if USE_GETLINE
 		bytes_read = getline(buffer, &length_ptr, stdin);
 #else
-		bytes_read = _getline_cust(information, buffer, &length_ptr);
+		bytes_read = _getline_custom(information, buffer, &length_ptr);
 #endif
 		if (bytes_read > 0)
 		{
@@ -31,11 +31,11 @@ ssize_t buffer_input(info_t *information, char **buffer, size_t *length)
 				bytes_read--;
 			}
 			information->linecount_flag = 1;
-			remove_comments(*buffer);
+			remove_first_comment(*buffer);
 			append_to_history_list(information, *buffer, information->histcount++);
 			{
 				*length = bytes_read;
-				information->cmd_buffer = buffer;
+				information->cmd_buf = buffer;
 			}
 		}
 	}
@@ -55,7 +55,7 @@ ssize_t obtain_input(info_t *information)
 	ssize_t bytes_read = 0;
 	char **buffer_ptr = &(information->argument), *pointer;
 
-	writeCharacter(BUFFER_FLUSH);
+	writeCharacter(BUF_FLUSH);
 	bytes_read = buffer_input(information, &buffer, &length);
 	if (bytes_read == -1) /* EOF */
 		return (-1);
@@ -74,7 +74,7 @@ ssize_t obtain_input(info_t *information)
 		if (iterator_i >= length) /* reached end of buffer? */
 		{
 			iterator_i = length = 0; /* reset position and length */
-			information->cmd_buffer_type = CMD_NORMAL;
+			information->cmd_buff_type = CMD_NORM;
 		}
 		*buffer_ptr = pointer; /* pass back pointer to current command position */
 		return (cust_strlen(pointer)); /* return length of current command */
@@ -97,23 +97,23 @@ ssize_t read_buffer(info_t *information, char *buffer, size_t *size)
 
 	if (*size)
 		return (0);
-	result = read(information->read_fd, buffer, READ_BUFFER_SIZE);
+	result = read(information->readfd, buffer, READ_BUF_SIZE);
 	if (result >= 0)
 		*size = result;
 	return (result);
 }
 
 /**
- * _getline_cust - gets the next line of input from STDIN
+ * _getline_custom - gets the next line of input from STDIN
  * @information: parameter struct
  * @ptr: address of pointer to buffer, preallocated or NULL
  * @length: size of preallocated ptr buffer if not NULL
  *
  * Return: s
  */
-int _getline_cust(info_t *information, char **ptr, size_t *length)
+int _getline_custom(info_t *information, char **ptr, size_t *length)
 {
-	static char buffer[READ_BUFFER_SIZE];
+	static char buffer[READ_BUF_SIZE];
 	static size_t iterator_i, buffer_length;
 	size_t k;
 	ssize_t read_result = 0, s = 0;
@@ -134,7 +134,7 @@ int _getline_cust(info_t *information, char **ptr, size_t *length)
 	if (!new_pointer) /* MALLOC FAILURE! */
 		return (pointer ? free(pointer), -1 : -1);
 	if (s)
-		cust_strcat(new_pointer, buffer + iterator_i, k - iterator_i);
+		_concatenateStrings(new_pointer, buffer + iterator_i, k - iterator_i);
 	else
 		_copyString(new_pointer, buffer + iterator_i, k - iterator_i + 1);
 	s += k - iterator_i;
@@ -156,5 +156,5 @@ void interruptHandler(__attribute__((unused))int signal_number)
 {
 	printString("\n");
 	printString("$ ");
-	writeCharacter(BUFFER_FLUSH);
+	writeCharacter(BUF_FLUSH);
 }
