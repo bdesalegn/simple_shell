@@ -73,14 +73,14 @@ void printString(char *str)
 int writeCharacter(char c)
 {
 	static int index;
-	static char buffer[WRITE_BUFFER_SIZE];
+	static char buffer[WRITE_BUF_SIZE];
 
-	if (c == FLUSH_BUFFER || index >= WRITE_BUFFER_SIZE)
+	if (c == BUF_FLUSH || index >= WRITE_BUF_SIZE)
 	{
 		write(1, buffer, index);
 		index = 0;
 	}
-	if (c != FLUSH_BUFFER)
+	if (c != BUF_FLUSH)
 		buffer[index++] = c;
 	return (1);
 }
