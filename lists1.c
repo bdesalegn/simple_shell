@@ -50,7 +50,7 @@ char **cust_list_to_strings(list_t *head_ptr)
 		}
 
 		str = copyString(str, current_node->str);
-		strings_array[i] = str;
+		strings_array[length] = str;
 	}
 	strings_array[length] = NULL;
 	return (strings_array);
@@ -87,8 +87,7 @@ size_t cust_print_list(const list_t *ptr)
  *
  * Return: matching node or null
  */
-list_t *cust_node_starts_with(list_t *node_ptr, char *prefix_str,
-		char next_char)
+list_t *cust_node_starts_with(list_t *node_ptr, char *prefix_str, char next_char)
 {
 	char *match = NULL;
 
