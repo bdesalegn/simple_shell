@@ -55,12 +55,12 @@ void print_custom_error(info_t *data, char *error_str)
  */
 int print_decimal(int input, int fd)
 {
-	int (*put_char)(char) = _put_char;
+	int (*put_char)(char) =  cust_putchar;
 	int i, count = 0;
 	unsigned int absolute, current;
 
 	if (fd == STDERR_FILENO)
-		put_char = _eputchar;
+		put_char = putchar;
 	if (input < 0)
 	{
 		absolute = -input;
