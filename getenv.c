@@ -10,7 +10,7 @@ char **obtain_environment(info_t *details)
 {
 	if (!details->environ || details->env_changed)
 	{
-		details->environ = cust_list_to_strings(details->env_list);
+		details->environ = cust_list_to_strings(details->env);
 		details->env_changed = 0;
 	}
 	return (details->environ);
