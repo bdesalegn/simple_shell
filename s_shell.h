@@ -153,7 +153,7 @@ char *copy_chars(char *, int, int);
 char *search_in_path(info_t *, char *, char *);
 
 /* Prototypes of print_char.c */
-void cust_puts(char *);
+void cust_puts(char *str_input);
 int cust_putchar(char);
 int put_to_fd(char char_input, int file_descriptor);
 int cust_puts_to_fd(char *str_input, int file_descriptor);
