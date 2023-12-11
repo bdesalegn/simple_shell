@@ -27,7 +27,7 @@ size_t cust_list_length(const list_t *ptr)
 char **cust_list_to_strings(list_t *head_ptr)
 {
 	list_t *current_node = head_ptr;
-	size_t length = cust_list_length(head_ptr);
+	size_t length = cust_list_length(head_ptr, j);
 	char **strings_array;
 	char *str;
 
@@ -38,12 +38,12 @@ char **cust_list_to_strings(list_t *head_ptr)
 	if (!strings_array)
 		return (NULL);
 
-	for (size_t i = 0; current_node; current_node = current_node->next, i++)
+	for (length = 0; current_node; current_node = current_node->next, length++)
 	{
 		str = malloc(cust_strlen(current_node->str) + 1);
 		if (!str)
 		{
-			for (size_t j = 0; j < i; j++)
+			for (j = 0; j < i; j++)
 				free(strings_array[j]);
 			free(strings_array);
 			return (NULL);
@@ -68,7 +68,7 @@ size_t cust_print_list(const list_t *ptr)
 
 	while (ptr)
 	{
-		cust_puts(convert_number(ptr->num, 10, 0));
+		cust_puts(convert_to_string(ptr->num, 10, 0));
 		cust_putchar(':');
 		cust_putchar(' ');
 		cust_puts(ptr->str ? ptr->str : "(nil)");
