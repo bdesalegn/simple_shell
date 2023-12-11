@@ -64,7 +64,7 @@ int print_decimal(int input, int fd)
 	if (input < 0)
 	{
 		absolute = -input;
-		put_char('-');
+		writeCharacter('-');
 		count++;
 	}
 	else
@@ -74,12 +74,12 @@ int print_decimal(int input, int fd)
 	{
 		if (absolute / i)
 		{
-			put_char('0' + current / i);
+			writeCharacter('0' + current / i);
 			count++;
 		}
 		current %= i;
 	}
-	put_char('0' + current);
+	writeCharacter('0' + current);
 	count++;
 
 	return (count);
