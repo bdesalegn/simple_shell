@@ -59,16 +59,16 @@ void release_data(info_t *data, int all)
 		if (!data->cmd_buf)
 			free(data->arg);
 		if (data->env)
-			free_list(&(data->env));
+			clear_list(&(data->env));
 		if (data->history)
-			free_list(&(data->history));
+			clear_list(&(data->history));
 		if (data->alias)
-			free_list(&(data->alias));
+			clear_list(&(data->alias));
 		cust_free(data->environ);
 		data->environ = NULL;
-		bfree((void **)data->cmd_buf);
+		myfree((void **)data->cmd_buf);
 		if (data->readfd > 2)
 			close(data->readfd);
-		cust_putchar(BUFFER_FLUSH);
+		cust_putchar(BUF_FLUSH);
 	}
 }
