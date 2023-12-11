@@ -180,7 +180,7 @@ void cust_free(char **);
 void *cust_realloc(void *, unsigned int, unsigned int);
 
 /*Prototypes of memory.c */
-int myfree(void **);
+int myFree(void **);
 
 /* Prototypes of getinfo.c */
 void initialize_data(info_t *);
