@@ -127,7 +127,7 @@ int replaceVariables(info_t *info)
 						duplicateString(convert_to_string(getpid(), 10, 0)));
 			continue;
 		}
-		node = cust_node_starts_with(info->environ, &info->argv[i][1], '=');
+		node = cust_node_starts_with(info->env, &info->argv[i][1], '=');
 		if (node)
 		{
 			replaceString(&(info->argv[i]),
