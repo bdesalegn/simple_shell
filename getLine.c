@@ -53,7 +53,7 @@ ssize_t obtain_input(info_t *information)
 	static char *buffer; /* the ';' command chain buffer */
 	static size_t iterator_i, iterator_j, length;
 	ssize_t bytes_read = 0;
-	char **buffer_ptr = &(information->argument), *pointer;
+	char **buffer_ptr = &(information->arg), *pointer;
 
 	writeCharacter(BUF_FLUSH);
 	bytes_read = buffer_input(information, &buffer, &length);
@@ -74,7 +74,7 @@ ssize_t obtain_input(info_t *information)
 		if (iterator_i >= length) /* reached end of buffer? */
 		{
 			iterator_i = length = 0; /* reset position and length */
-			information->cmd_buff_type = CMD_NORM;
+			information->cmd_buf_type = CMD_NORM;
 		}
 		*buffer_ptr = pointer; /* pass back pointer to current command position */
 		return (cust_strlen(pointer)); /* return length of current command */
