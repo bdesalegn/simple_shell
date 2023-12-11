@@ -27,7 +27,7 @@ size_t cust_list_length(const list_t *ptr)
 char **cust_list_to_strings(list_t *head_ptr)
 {
 	list_t *current_node = head_ptr;
-	size_t length = cust_list_length(head_ptr, j);
+	size_t length = cust_list_length(head_ptr), j;
 	char **strings_array;
 	char *str;
 
@@ -43,7 +43,7 @@ char **cust_list_to_strings(list_t *head_ptr)
 		str = malloc(cust_strlen(current_node->str) + 1);
 		if (!str)
 		{
-			for (j = 0; j < i; j++)
+			for (j = 0; j < length; j++)
 				free(strings_array[j]);
 			free(strings_array);
 			return (NULL);
