@@ -66,7 +66,7 @@ void release_data(info_t *data, int all)
 			clear_list(&(data->alias));
 		cust_free(data->environ);
 		data->environ = NULL;
-		myfree((void **)data->cmd_buf);
+		myFree((void **)data->cmd_buf);
 		if (data->readfd > 2)
 			close(data->readfd);
 		cust_putchar(BUF_FLUSH);
