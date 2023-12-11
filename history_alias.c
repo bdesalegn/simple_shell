@@ -106,7 +106,7 @@ int manage_alias(info_t *info)
 		if (equal_sign_position)
 			add_alias(info, info->argv[i]);
 		else
-			print_single_alias(node_starts_with(info->alias, info->argv[i], '='));
+			print_single_alias(cust_starts_with(info->alias, info->argv[i], '='));
 	}
 
 	return (0);
