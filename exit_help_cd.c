@@ -44,8 +44,8 @@ int change_directory(info_t *info_struct)
 	{
 		target_dir = get_environment_variable(info_struct, "HOME=");
 		if (!target_dir)
-			chdir_ret =
-				chdir((target_dir = get_environment_variable(info_struct, "PWD=")) ? target_dir : "/");
+			chdir_ret = chdir((target_dir = get_environment_variable
+						(info_struct, "PWD=")) ? target_dir : "/");
 		else
 			chdir_ret = chdir(target_dir);
 	}
@@ -54,12 +54,12 @@ int change_directory(info_t *info_struct)
 		if (get_environment_variable(info_struct, "OLD_PWD="))
 		{
 			cust_puts(current_dir);
-			cust_putchar('\n');
+			writeCharacter('\n');
 			return (1);
 		}
-		cust_puts(get_environment_variable(info_struct, "OLD_PWD=")), cust_putchar('\n');
-		chdir_ret =
-			chdir((target_dir = get_environment_variable(info_struct, "OLD_PWD=")) ? target_dir : "/");
+		cust_puts(get_environment_variable(info_struct, "OLD_PWD=")), writeCharacter('\n');
+		chdir_ret = chdir((target_dir = get_environment_variable
+					(info_struct, "OLD_PWD=")) ? target_dir : "/");
 	}
 	else
 		chdir_ret = chdir(info_struct->argv[1]);
