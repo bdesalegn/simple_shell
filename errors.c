@@ -3,7 +3,7 @@
 /**
  * str_to_int - converts a string to an integer
  * @str: the string to be converted
- * Return: 0 if no numbers in string, converted number otherwise
+ * Return: 0 if no numbers in string, converted numb
  *       -1 on error
  */
 int str_to_int(char *str)
@@ -55,16 +55,16 @@ void print_custom_error(info_t *data, char *error_str)
  */
 int print_decimal(int input, int fd)
 {
-	int (*writeCharacter)(char) =  writeCharacter;
+	int (*_writeCharacter)(char) =  writeCharacter;
 	int i, count = 0;
 	unsigned int absolute, current;
 
 	if (fd == STDERR_FILENO)
-		writeCharacter = cust_putchar;
+		_writeCharacter = cust_putchar;
 	if (input < 0)
 	{
 		absolute = -input;
-		writeCharacter('-');
+		_writeCharacter('-');
 		count++;
 	}
 	else
@@ -74,12 +74,12 @@ int print_decimal(int input, int fd)
 	{
 		if (absolute / i)
 		{
-			writeCharacter('0' + current / i);
+			_writeCharacter('0' + current / i);
 			count++;
 		}
 		current %= i;
 	}
-	writeCharacter('0' + current);
+	_writeCharacter('0' + current);
 	count++;
 
 	return (count);
@@ -87,11 +87,11 @@ int print_decimal(int input, int fd)
 
 /**
  * convert_to_string - converter function, a clone of itoa
- * @num: number
+ * @num: number to be converte
  * @base: base
  * @flags: argument flags
  *
- * Return: string
+ * Return: Always to string
  */
 char *convert_to_string(long int num, int base, int flags)
 {
