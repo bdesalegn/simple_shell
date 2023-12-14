@@ -2,8 +2,8 @@
 
 /**
  * buffer_input - buffers chained commands
- * @information: parameter struct
- * @buffer: address of buffer
+ * @information: parameter struct variable
+ * @buffer: address of buffer memory
  * @length: address of len var
  *
  * Return: bytes read
@@ -50,19 +50,19 @@ ssize_t buffer_input(info_t *information, char **buffer, size_t *length)
  */
 ssize_t obtain_input(info_t *information)
 {
-	static char *buffer; /* the ';' command chain buffer */
+	static char *buffer;
 	static size_t iterator_i, iterator_j, length;
 	ssize_t bytes_read = 0;
 	char **buffer_ptr = &(information->arg), *pointer;
 
 	writeCharacter(BUF_FLUSH);
 	bytes_read = buffer_input(information, &buffer, &length);
-	if (bytes_read == -1) /* EOF */
+	if (bytes_read == -1)
 		return (-1);
-	if (length) /* we have commands left in the chain buffer */
+	if (length)
 	{
-		iterator_j = iterator_i; /* init new iterator to current buffer position */
-		pointer = buffer + iterator_i; /* get pointer for return */
+		iterator_j = iterator_i;
+		pointer = buffer + iterator_i;
 		checkDelimiter(information, buffer, &iterator_j, iterator_i, length);
 		while (iterator_j < length)
 		{
@@ -70,17 +70,17 @@ ssize_t obtain_input(info_t *information)
 				break;
 			iterator_j++;
 		}
-		iterator_i = iterator_j + 1; /* increment past nulled ';'' */
-		if (iterator_i >= length) /* reached end of buffer? */
+		iterator_i = iterator_j + 1;
+		if (iterator_i >= length)
 		{
-			iterator_i = length = 0; /* reset position and length */
+			iterator_i = length = 0;
 			information->cmd_buf_type = CMD_NORM;
 		}
-		*buffer_ptr = pointer; /* pass back pointer to current command position */
-		return (cust_strlen(pointer)); /* return length of current command */
+		*buffer_ptr = pointer;
+		return (cust_strlen(pointer));
 	}
 	*buffer_ptr = buffer;
-	return (bytes_read); /* return length of buffer from _getline() */
+	return (bytes_read);
 }
 
 /**
