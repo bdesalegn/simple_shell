@@ -69,6 +69,6 @@ void release_data(info_t *data, int all)
 		myFree((void **)data->cmd_buf);
 		if (data->readfd > 2)
 			close(data->readfd);
-		cust_putchar(BUF_FLUSH);
+		writeCharacter(BUF_FLUSH);
 	}
 }
