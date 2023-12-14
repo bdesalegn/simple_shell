@@ -18,10 +18,9 @@ char **obtain_environment(info_t *details)
 
 /**
  * remove_environment_variable - Remove an environment variable
- * @details: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- *  Return: 1 on delete, 0 otherwise
+ * @details: Structure containing potential arguments. Used to maintain.
  * @property: the string environment variable property
+ *  Return: 1 on delete, 0 otherwise
  */
 int remove_environment_variable(info_t *details, char *property)
 {
@@ -52,7 +51,6 @@ int remove_environment_variable(info_t *details, char *property)
  * update_environment_variable - Initialize a new environment variable,
  *             or modify an existing one
  * @details: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
  * @property: the string environment variable property
  * @value: the string environment variable value
  *  Return: Always 0
