@@ -3,7 +3,7 @@
 /**
  * _copyString - copies a string
  * @destination: the destination string to be copied to
- * @source: the source string
+ * @source: source of teh string
  * @numChars: the number of characters to be copied
  * Return: the concatenated string
  */
