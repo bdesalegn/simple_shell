@@ -39,7 +39,7 @@ int change_directory(info_t *info_struct)
 
 	current_dir = getcwd(buffer, 1024);
 	if (!current_dir)
-		cust_puts("TODO: >>get change wd failure mesage here<<\n");
+		printString("TODO: >>get change wd failure mesage here<<\n");
 	if (!info_struct->argv[1])
 	{
 		target_dir = get_environment_variable(info_struct, "HOME=");
@@ -53,11 +53,11 @@ int change_directory(info_t *info_struct)
 	{
 		if (get_environment_variable(info_struct, "OLD_PWD="))
 		{
-			cust_puts(current_dir);
+			printString(current_dir);
 			writeCharacter('\n');
 			return (1);
 		}
-		cust_puts(get_environment_variable(info_struct, "OLD_PWD=")), writeCharacter('\n');
+		printString(get_environment_variable(info_struct, "OLD_PWD=")), writeCharacter('\n');
 		chdir_ret = chdir((target_dir = get_environment_variable
 					(info_struct, "OLD_PWD=")) ? target_dir : "/");
 	}
@@ -86,8 +86,8 @@ int display_help(info_t *info_struct)
 	char **arg_array;
 
 	arg_array = info_struct->argv;
-	cust_puts("calling help works. Function not yet developed \n");
+	printString("calling help works. Function not yet developed \n");
 	if (0)
-		cust_puts(*arg_array);
+		printString(*arg_array);
 	return (0);
-}
+
