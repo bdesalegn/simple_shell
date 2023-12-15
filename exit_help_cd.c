@@ -90,4 +90,4 @@ int display_help(info_t *info_struct)
 	if (0)
 		printString(*arg_array);
 	return (0);
-
+}
