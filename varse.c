@@ -26,7 +26,7 @@ int is_chain_delimiter(info_t *info, char *buffer, size_t *position)
 	}
 	else if (buffer[j] == ';') /* found end of this command */
 	{
-		buffer[j] = 0; /* replace semicolon with null */
+		buffer[j] = 0;
 		info->cmd_buf_type = CMD_CHAIN;
 	}
 	else
@@ -118,20 +118,20 @@ int replaceVariables(info_t *info)
 		if (!cust_strcmp(info->argv[i], "$?"))
 		{
 			replaceString(&(info->argv[i]),
-							duplicateString(convert_to_string(info->status, 10, 0)));
+					duplicateString(convert_to_string(info->status, 10, 0)));
 			continue;
 		}
 		if (!cust_strcmp(info->argv[i], "$$"))
 		{
 			replaceString(&(info->argv[i]),
-						duplicateString(convert_to_string(getpid(), 10, 0)));
+					duplicateString(convert_to_string(getpid(), 10, 0)));
 			continue;
 		}
 		node = cust_node_starts_with(info->env, &info->argv[i][1], '=');
 		if (node)
 		{
 			replaceString(&(info->argv[i]),
-						duplicateString(_findCharacter(node->str, '=') + 1));
+					duplicateString(_findCharacter(node->str, '=') + 1));
 			continue;
 		}
 		replaceString(&info->argv[i], duplicateString(""));
